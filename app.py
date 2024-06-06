@@ -6,7 +6,7 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split  # Tambahkan import untuk train_test_split
 
 # Lakukan unduhan NLTK di awal skrip
 nltk.download('stopwords')
@@ -52,20 +52,12 @@ def classify_text(input_text):
     predicted_label = logreg_model.predict(input_vector)[0]
     return predicted_label
 
-# Sidebar untuk navigasi
-st.sidebar.title("Menu")
-page = st.sidebar.radio("Pilih Halaman:", ["Prediksi Sentimen", "Laporan"])
-
-if page == "Prediksi Sentimen":
-    st.title("Aplikasi Analisis Sentimen Scentplus")
-    input_text = st.text_input("Masukkan kalimat untuk analisis sentimen:")
-    if st.button("Analisis"):
-        if input_text.strip() == "":
-            st.error("Tolong masukkan sentimen terlebih dahulu.")
-        else:
-            result = classify_text(input_text)
-            st.write("Hasil Analisis Sentimen:", result)
-
-elif page == "Laporan":
-    st.experimental_rerun()
-    st.markdown('<meta http-equiv="refresh" content="0; url=/laporan">', unsafe_allow_html=True)
+# Streamlit UI
+st.title("Aplikasi Analisis Sentimen scentplus")
+input_text = st.text_input("Masukkan kalimat untuk analisis sentimen:")
+if st.button("Analisis"):
+    if input_text.strip() == "":
+        st.error("Tolong masukkan sentimen terlebih dahulu.")
+    else:
+        result = classify_text(input_text)
+        st.write("Hasil Analisis Sentimen:", result)

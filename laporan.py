@@ -84,13 +84,14 @@ def convert_df_to_excel(df):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Sheet1')
-        writer.close()
+        writer.close()  # Gunakan writer.close() untuk menyimpan file
     processed_data = output.getvalue()
     return processed_data
 
 # Streamlit UI
 st.title("Aplikasi Analisis Sentimen Scentplus")
 
+# Tab untuk dua fitur: Prediksi Sentimen dan Analisis Sentimen
 tab1, tab2 = st.tabs(["Prediksi Sentimen", "Analisis Sentimen"])
 
 with tab1:
@@ -98,14 +99,22 @@ with tab1:
     uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx"], key="file_uploader")
 
     if uploaded_file is not None:
+        # Baca file Excel
         df = pd.read_excel(uploaded_file)
         
+        # Periksa apakah kolom 'Text' ada di file yang diunggah
         if 'Text' in df.columns:
+            # Inisialisasi TF-IDF Vectorizer dan fit_transform pada data teks
             X = df['Text'].apply(clean_text)
             X_tfidf = tfidf_vectorizer.transform(X)
+            
+            # Lakukan prediksi
             df['Human'] = logreg_model.predict(X_tfidf)
+            
+            # Tampilkan prediksi
             st.write(df)
             
+            # Buat tombol unduh
             st.download_button(
                 label="Unduh file dengan prediksi",
                 data=convert_df_to_excel(df),
@@ -120,12 +129,16 @@ with tab2:
     uploaded_excel = st.file_uploader("Unggah file Excel", type=["xlsx"], key="file_uploader_analysis")
 
     if uploaded_excel is not None:
+        # Baca file Excel
         df_excel = pd.read_excel(uploaded_excel)
         
+        # Periksa apakah kolom 'Human' ada di file yang diunggah
         if 'Human' in df_excel.columns:
+            # Hitung kemunculan setiap sentimen
             sentiment_counts = df_excel['Human'].value_counts().reset_index()
             sentiment_counts.columns = ['Sentiment', 'Count']
             
+            # Buat diagram batang menggunakan Plotly
             fig = px.bar(sentiment_counts, x='Sentiment', y='Count', color='Sentiment',
                          labels={'Sentiment': 'Sentimen', 'Count': 'Jumlah'},
                          title='Distribusi Sentimen',
@@ -136,6 +149,7 @@ with tab2:
             
             st.plotly_chart(fig)
             
+            # Hasilkan kata untuk setiap sentimen
             sentiments = df_excel['Human'].unique()
             for sentiment in sentiments:
                 sentiment_text = " ".join(df_excel[df_excel['Human'] == sentiment]['Text'])
