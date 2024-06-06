@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 import joblib
 import nltk
@@ -5,7 +6,7 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split  # Tambahkan import untuk train_test_split
+from sklearn.model_selection import train_test_split
 
 # Lakukan unduhan NLTK di awal skrip
 nltk.download('stopwords')
@@ -66,6 +67,5 @@ if page == "Prediksi Sentimen":
             st.write("Hasil Analisis Sentimen:", result)
 
 elif page == "Laporan":
-    # Menggunakan streamlit run command untuk memanggil laporan.py
     st.experimental_rerun()
     st.markdown('<meta http-equiv="refresh" content="0; url=/laporan">', unsafe_allow_html=True)
