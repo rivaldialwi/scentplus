@@ -92,10 +92,10 @@ def convert_df_to_excel(df):
 st.title("Aplikasi Analisis Sentimen Scentplus")
 
 # Sidebar untuk navigasi
-menu = ["Prediksi Sentimen", "Laporan"]
-choice = st.sidebar.selectbox("Menu", menu)
+st.sidebar.title("Menu")
+menu = st.sidebar.radio("Pilih Halaman:", ["Prediksi Sentimen", "Laporan"])
 
-if choice == "Prediksi Sentimen":
+if menu == "Prediksi Sentimen":
     st.header("Prediksi Sentimen")
 
     input_text = st.text_input("Masukkan kalimat untuk analisis sentimen:")
@@ -106,7 +106,7 @@ if choice == "Prediksi Sentimen":
             result = classify_text(input_text)
             st.write("Hasil Analisis Sentimen:", result)
 
-elif choice == "Laporan":
+elif menu == "Laporan":
     st.header("Laporan")
 
     tab1, tab2 = st.tabs(["Prediksi Sentimen", "Analisis Sentimen"])
