@@ -7,8 +7,8 @@ PAGES = {
     "Laporan Analisis Sentimen": laporan
 }
 
-st.sidebar.title('Navigasi')
-selection = st.sidebar.radio("Pilih Halaman", list(PAGES.keys()))
+st.sidebar.title('Menu')
+selection = st.sidebar.radio("Silahkan Memilih Menu", list(PAGES.keys()))
 
 page = PAGES[selection]
 page.run()
