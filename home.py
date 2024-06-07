@@ -2,7 +2,7 @@ import streamlit as st
 
 def main():
     st.sidebar.title("Menu")
-    st.sidebar.info("Pilih halaman yang ingin Anda akses.")
+    st.sidebar.info("Pilih halaman yang ingin Anda akses")
 
     st.title("Aplikasi Analisis Sentimen Scentplus")
     st.write("""
