@@ -151,7 +151,8 @@ def run():
                 fig = px.bar(sentiment_counts, x='Sentiment', y='Count', color='Sentiment',
                              labels={'Sentiment': 'Sentimen', 'Count': 'Jumlah'},
                              title='Distribusi Sentimen',
-                             text='Count')
+                             text='Count',
+                             color_discrete_map=color_discrete_map)
                 
                 fig.update_traces(texttemplate='%{text}', textposition='outside')
                 fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')

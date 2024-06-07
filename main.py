@@ -3,8 +3,8 @@ import app
 import laporan
 
 PAGES = {
-    "Aplikasi Analisis Sentimen": app,
-    "Laporan Analisis": laporan
+    "Prediksi Sentimen": app,
+    "Laporan Analisis Sentimen": laporan
 }
 
 st.sidebar.title('Navigasi')
