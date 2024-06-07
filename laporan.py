@@ -139,20 +139,16 @@ def run():
                 sentiment_counts = df_excel['Human'].value_counts().reset_index()
                 sentiment_counts.columns = ['Sentiment', 'Count']
                 
-                sentiment_counts = Counter(sentiments)
-                    st.subheader("Sentiment Distribution")
-                    fig = px.bar(
-                        x=list(sentiment_counts.keys()),
-                        y=list(sentiment_counts.values()),
-                        labels={'x': 'Sentiment', 'y': 'Count'},
-                        color=list(sentiment_counts.keys()),
-                        color_discrete_map={
-                            'positive': 'blue',
-                            'neutral': 'gray',
-                            'negative': 'red'
-                        }
-                    )
-                    st.plotly_chart(fig)
+                # Buat diagram batang menggunakan Plotly
+                fig = px.bar(sentiment_counts, x='Sentiment', y='Count', color='Sentiment',
+                             labels={'Sentiment': 'Sentimen', 'Count': 'Jumlah'},
+                             title='Distribusi Sentimen',
+                             text='Count')
+                
+                fig.update_traces(texttemplate='%{text}', textposition='outside')
+                fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+                
+                st.plotly_chart(fig)
                 
                 # Hasilkan kata untuk setiap sentimen
                 sentiments = df_excel['Human'].unique()
