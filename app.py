@@ -52,12 +52,16 @@ def classify_text(input_text):
     predicted_label = logreg_model.predict(input_vector)[0]
     return predicted_label
 
-# Streamlit UI
-st.title("Aplikasi Analisis Sentimen scentplus")
-input_text = st.text_input("Masukkan kalimat untuk analisis sentimen:")
-if st.button("Analisis"):
-    if input_text.strip() == "":
-        st.error("Tolong masukkan sentimen terlebih dahulu.")
-    else:
-        result = classify_text(input_text)
-        st.write("Hasil Analisis Sentimen:", result)
+# Fungsi untuk menjalankan aplikasi
+def run():
+    st.title("Aplikasi Analisis Sentimen scentplus")
+    input_text = st.text_input("Masukkan kalimat untuk analisis sentimen:")
+    if st.button("Analisis"):
+        if input_text.strip() == "":
+            st.error("Tolong masukkan sentimen terlebih dahulu.")
+        else:
+            result = classify_text(input_text)
+            st.write("Hasil Analisis Sentimen:", result)
+
+if __name__ == "__main__":
+    run()
