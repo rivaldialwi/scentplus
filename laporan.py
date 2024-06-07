@@ -140,6 +140,14 @@ def run():
                 sentiment_counts.columns = ['Sentiment', 'Count']
                 
                 # Buat diagram batang menggunakan Plotly
+
+                 # Buat diagram batang menggunakan Plotly
+                color_discrete_map = {
+                    'negatif': 'red',
+                    'netral': 'gray',
+                    'positif': 'green'
+                }
+                
                 fig = px.bar(sentiment_counts, x='Sentiment', y='Count', color='Sentiment',
                              labels={'Sentiment': 'Sentimen', 'Count': 'Jumlah'},
                              title='Distribusi Sentimen',
